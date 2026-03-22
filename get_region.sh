@@ -134,6 +134,7 @@ fi
 
 # Get all region data
 all_region_data=$(curl -s "$serverlist_url" | head -1)
+check_all_region_data
 
 # Set the region the user has specified
 selectedRegion=$PREFERRED_REGION
@@ -141,7 +142,6 @@ selectedRegion=$PREFERRED_REGION
 # If a server isn't being specified, auto-select the server with the lowest latency
 if [[ $selectedRegion == "none" ]]; then
   selectedOrLowestLatency="lowest latency"
-  check_all_region_data
 
   # Making sure this variable doesn't contain some strange string
   if [[ $PIA_PF != "true" ]]; then
@@ -180,7 +180,6 @@ found in at : ${green}/opt/piavpn-manual/latencyList${nc}
   fi
 else
   selectedOrLowestLatency="selected"
-  check_all_region_data
 fi
 
 get_selected_region_data
