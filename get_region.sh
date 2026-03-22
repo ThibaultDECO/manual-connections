@@ -109,12 +109,15 @@ printServerLatency() {
     --connect-timeout "$MAX_LATENCY" \
     --write-out "%{time_connect}" \
     "http://$serverIP:443")
-  if [[ $? -eq 0 ]]; then
+  exit_status=$?
+  if [[ $exit_status -eq 0 ]]; then
     >&2 echo "Got latency ${time}s for region: $regionName"
     echo "$time $regionID $serverIP"
     # Write a list of servers with acceptable latency
     # to /opt/piavpn-manual/latencyList
     echo -e "$time" "$regionID"'\t'"$serverIP"'\t'"$regionName" >> /opt/piavpn-manual/latencyList
+  else
+    >&2 echo "❌ Failed to connect to $serverIP (region: $regionName, time: $time)"
   fi
   # Sort the latencyList, ordered by latency
   sort -no /opt/piavpn-manual/latencyList /opt/piavpn-manual/latencyList
