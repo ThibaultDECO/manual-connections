@@ -117,7 +117,7 @@ printServerLatency() {
     # to /opt/piavpn-manual/latencyList
     echo -e "$time" "$regionID"'\t'"$serverIP"'\t'"$regionName" >> /opt/piavpn-manual/latencyList
   else
-    >&2 echo "❌ Failed to connect to $serverIP (region: $regionName, time: $time)"
+    >&2 echo "❌ Failed to connect to $serverIP (region: $regionName, time: $time) with status $exit_status"
   fi
   # Sort the latencyList, ordered by latency
   sort -no /opt/piavpn-manual/latencyList /opt/piavpn-manual/latencyList
